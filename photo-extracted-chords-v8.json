@@ -1,0 +1,1642 @@
+{
+  "schema_version": 2,
+  "title": "Photo-extracted jazz chord shapes",
+  "reference_root": "C",
+  "string_order": [
+    6,
+    5,
+    4,
+    3,
+    2,
+    1
+  ],
+  "tuning": {
+    "6": "E",
+    "5": "A",
+    "4": "D",
+    "3": "G",
+    "2": "B",
+    "1": "E"
+  },
+  "note_convention": "Each shape is the printed C-reference voicing from the supplied photos. Transposition moves the entire shape by the same number of semitones; it does not invent alternate voicings.",
+  "groups": [
+    {
+      "id": "major",
+      "label": "Major Group",
+      "source": "IMG_2061.jpg / IMG_2062.jpg / IMG_2063.jpg",
+      "chords": [
+        {
+          "id": "major",
+          "label": "Major",
+          "suffix": "",
+          "quality_intervals": [
+            0,
+            4,
+            7
+          ],
+          "shapes": [
+            {
+              "id": "C-major-1",
+              "bass_degree": "5",
+              "printed_position": null,
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 3,
+                  "finger": 2,
+                  "interval": "5",
+                  "c_note": "G"
+                },
+                {
+                  "string": 4,
+                  "fret": 2,
+                  "finger": 1,
+                  "interval": "3",
+                  "c_note": "E"
+                },
+                {
+                  "string": 3,
+                  "fret": 5,
+                  "finger": 4,
+                  "interval": "1",
+                  "c_note": "C"
+                }
+              ],
+              "muted_strings": [
+                5,
+                2,
+                1
+              ]
+            },
+            {
+              "id": "C-major-2",
+              "bass_degree": "1",
+              "printed_position": "5 fr",
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 8,
+                  "finger": 3,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 4,
+                  "fret": 5,
+                  "finger": 1,
+                  "interval": "5",
+                  "c_note": "G"
+                },
+                {
+                  "string": 3,
+                  "fret": 9,
+                  "finger": 4,
+                  "interval": "3",
+                  "c_note": "E"
+                }
+              ],
+              "muted_strings": [
+                5,
+                2,
+                1
+              ]
+            },
+            {
+              "id": "C-major-3",
+              "bass_degree": "3",
+              "printed_position": "10 fr",
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 12,
+                  "finger": 3,
+                  "interval": "3",
+                  "c_note": "E"
+                },
+                {
+                  "string": 4,
+                  "fret": 10,
+                  "finger": 1,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 3,
+                  "fret": 12,
+                  "finger": 4,
+                  "interval": "5",
+                  "c_note": "G"
+                }
+              ],
+              "muted_strings": [
+                5,
+                2,
+                1
+              ]
+            }
+          ]
+        },
+        {
+          "id": "maj7",
+          "label": "Major 7",
+          "suffix": "maj7",
+          "quality_intervals": [
+            0,
+            4,
+            7,
+            11
+          ],
+          "shapes": [
+            {
+              "id": "C-maj7-1",
+              "bass_degree": "5",
+              "printed_position": null,
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 3,
+                  "finger": 2,
+                  "interval": "5",
+                  "c_note": "G"
+                },
+                {
+                  "string": 4,
+                  "fret": 2,
+                  "finger": 1,
+                  "interval": "3",
+                  "c_note": "E"
+                },
+                {
+                  "string": 3,
+                  "fret": 4,
+                  "finger": 4,
+                  "interval": "7",
+                  "c_note": "B"
+                }
+              ],
+              "muted_strings": [
+                5,
+                2,
+                1
+              ]
+            },
+            {
+              "id": "C-maj7-2",
+              "bass_degree": "7",
+              "printed_position": "5 fr",
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 7,
+                  "finger": 3,
+                  "interval": "7",
+                  "c_note": "B"
+                },
+                {
+                  "string": 4,
+                  "fret": 5,
+                  "finger": 1,
+                  "interval": "5",
+                  "c_note": "G"
+                },
+                {
+                  "string": 3,
+                  "fret": 5,
+                  "finger": 1,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 2,
+                  "fret": 5,
+                  "finger": 1,
+                  "interval": "3",
+                  "c_note": "E"
+                }
+              ],
+              "barres": [
+                {
+                  "finger": 1,
+                  "fret": 5,
+                  "from_string": 4,
+                  "to_string": 2
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            },
+            {
+              "id": "C-maj7-3",
+              "bass_degree": "1",
+              "printed_position": "8 fr",
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 8,
+                  "finger": 1,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 4,
+                  "fret": 9,
+                  "finger": 3,
+                  "interval": "7",
+                  "c_note": "B"
+                },
+                {
+                  "string": 3,
+                  "fret": 9,
+                  "finger": 4,
+                  "interval": "3",
+                  "c_note": "E"
+                },
+                {
+                  "string": 2,
+                  "fret": 8,
+                  "finger": 2,
+                  "interval": "5",
+                  "c_note": "G"
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            },
+            {
+              "id": "C-maj7-4",
+              "bass_degree": "3",
+              "printed_position": "10 fr",
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 12,
+                  "finger": 2,
+                  "interval": "3",
+                  "c_note": "E"
+                },
+                {
+                  "string": 4,
+                  "fret": 10,
+                  "finger": 1,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 3,
+                  "fret": 12,
+                  "finger": 3,
+                  "interval": "5",
+                  "c_note": "G"
+                },
+                {
+                  "string": 2,
+                  "fret": 12,
+                  "finger": 4,
+                  "interval": "7",
+                  "c_note": "B"
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6",
+          "label": "Major 6",
+          "suffix": "6",
+          "quality_intervals": [
+            0,
+            4,
+            7,
+            9
+          ],
+          "shapes": [
+            {
+              "id": "C6-1",
+              "bass_degree": "5",
+              "printed_position": null,
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 3,
+                  "finger": 4,
+                  "interval": "5",
+                  "c_note": "G"
+                },
+                {
+                  "string": 4,
+                  "fret": 2,
+                  "finger": 2,
+                  "interval": "3",
+                  "c_note": "E"
+                },
+                {
+                  "string": 3,
+                  "fret": 2,
+                  "finger": 3,
+                  "interval": "6",
+                  "c_note": "A"
+                },
+                {
+                  "string": 2,
+                  "fret": 1,
+                  "finger": 1,
+                  "interval": "1",
+                  "c_note": "C"
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            },
+            {
+              "id": "C6-2",
+              "bass_degree": "6",
+              "printed_position": null,
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 5,
+                  "finger": 2,
+                  "interval": "6",
+                  "c_note": "A"
+                },
+                {
+                  "string": 4,
+                  "fret": 5,
+                  "finger": 3,
+                  "interval": "5",
+                  "c_note": "G"
+                },
+                {
+                  "string": 3,
+                  "fret": 5,
+                  "finger": 3,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 2,
+                  "fret": 5,
+                  "finger": 3,
+                  "interval": "3",
+                  "c_note": "E"
+                }
+              ],
+              "barres": [
+                {
+                  "finger": 3,
+                  "fret": 5,
+                  "from_string": 4,
+                  "to_string": 2
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            },
+            {
+              "id": "C6-3",
+              "bass_degree": "1",
+              "printed_position": "7 fr",
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 8,
+                  "finger": 2,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 4,
+                  "fret": 7,
+                  "finger": 1,
+                  "interval": "6",
+                  "c_note": "A"
+                },
+                {
+                  "string": 3,
+                  "fret": 9,
+                  "finger": 4,
+                  "interval": "3",
+                  "c_note": "E"
+                },
+                {
+                  "string": 2,
+                  "fret": 8,
+                  "finger": 3,
+                  "interval": "5",
+                  "c_note": "G"
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            },
+            {
+              "id": "C6-4",
+              "bass_degree": "3",
+              "printed_position": "10 fr",
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 12,
+                  "finger": 3,
+                  "interval": "3",
+                  "c_note": "E"
+                },
+                {
+                  "string": 4,
+                  "fret": 10,
+                  "finger": 1,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 3,
+                  "fret": 12,
+                  "finger": 4,
+                  "interval": "5",
+                  "c_note": "G"
+                },
+                {
+                  "string": 2,
+                  "fret": 10,
+                  "finger": 1,
+                  "interval": "6",
+                  "c_note": "A"
+                }
+              ],
+              "barres": [
+                {
+                  "finger": 1,
+                  "fret": 10,
+                  "from_string": 4,
+                  "to_string": 2
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "minor",
+      "label": "Minor Group",
+      "source": "IMG_2064.jpg",
+      "chords": [
+        {
+          "id": "minor",
+          "label": "Minor",
+          "suffix": "m",
+          "quality_intervals": [
+            0,
+            3,
+            7
+          ],
+          "shapes": [
+            {
+              "id": "Cm-1",
+              "bass_degree": "5",
+              "printed_position": null,
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 3,
+                  "finger": 2,
+                  "interval": "5",
+                  "c_note": "G"
+                },
+                {
+                  "string": 4,
+                  "fret": 1,
+                  "finger": 1,
+                  "interval": "b3",
+                  "c_note": "Eb"
+                },
+                {
+                  "string": 3,
+                  "fret": 5,
+                  "finger": 4,
+                  "interval": "1",
+                  "c_note": "C"
+                }
+              ],
+              "muted_strings": [
+                5,
+                2,
+                1
+              ]
+            },
+            {
+              "id": "Cm-2",
+              "bass_degree": "1",
+              "printed_position": "5 fr",
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 8,
+                  "finger": 3,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 4,
+                  "fret": 5,
+                  "finger": 1,
+                  "interval": "5",
+                  "c_note": "G"
+                },
+                {
+                  "string": 3,
+                  "fret": 8,
+                  "finger": 4,
+                  "interval": "b3",
+                  "c_note": "Eb"
+                }
+              ],
+              "muted_strings": [
+                5,
+                2,
+                1
+              ]
+            },
+            {
+              "id": "Cm-3",
+              "bass_degree": "b3",
+              "printed_position": "10 fr",
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 11,
+                  "finger": 2,
+                  "interval": "b3",
+                  "c_note": "Eb"
+                },
+                {
+                  "string": 4,
+                  "fret": 10,
+                  "finger": 1,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 3,
+                  "fret": 12,
+                  "finger": 4,
+                  "interval": "5",
+                  "c_note": "G"
+                }
+              ],
+              "muted_strings": [
+                5,
+                2,
+                1
+              ]
+            }
+          ]
+        },
+        {
+          "id": "m7",
+          "label": "Minor 7",
+          "suffix": "m7",
+          "quality_intervals": [
+            0,
+            3,
+            7,
+            10
+          ],
+          "shapes": [
+            {
+              "id": "Cm7-1",
+              "bass_degree": "5",
+              "printed_position": null,
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 3,
+                  "finger": 3,
+                  "interval": "5",
+                  "c_note": "G"
+                },
+                {
+                  "string": 4,
+                  "fret": 1,
+                  "finger": 1,
+                  "interval": "b3",
+                  "c_note": "Eb"
+                },
+                {
+                  "string": 3,
+                  "fret": 3,
+                  "finger": 4,
+                  "interval": "b7",
+                  "c_note": "Bb"
+                },
+                {
+                  "string": 2,
+                  "fret": 1,
+                  "finger": 1,
+                  "interval": "1",
+                  "c_note": "C"
+                }
+              ],
+              "barres": [
+                {
+                  "finger": 1,
+                  "fret": 1,
+                  "from_string": 4,
+                  "to_string": 2
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            },
+            {
+              "id": "Cm7-2",
+              "bass_degree": "b7",
+              "printed_position": "4 fr",
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 6,
+                  "finger": 4,
+                  "interval": "b7",
+                  "c_note": "Bb"
+                },
+                {
+                  "string": 4,
+                  "fret": 5,
+                  "finger": 2,
+                  "interval": "5",
+                  "c_note": "G"
+                },
+                {
+                  "string": 3,
+                  "fret": 5,
+                  "finger": 3,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 2,
+                  "fret": 4,
+                  "finger": 1,
+                  "interval": "b3",
+                  "c_note": "Eb"
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            },
+            {
+              "id": "Cm7-3",
+              "bass_degree": "1",
+              "printed_position": "8 fr",
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 8,
+                  "finger": 2,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 4,
+                  "fret": 8,
+                  "finger": 3,
+                  "interval": "b7",
+                  "c_note": "Bb"
+                },
+                {
+                  "string": 3,
+                  "fret": 8,
+                  "finger": 3,
+                  "interval": "b3",
+                  "c_note": "Eb"
+                },
+                {
+                  "string": 2,
+                  "fret": 8,
+                  "finger": 3,
+                  "interval": "5",
+                  "c_note": "G"
+                }
+              ],
+              "barres": [
+                {
+                  "finger": 3,
+                  "fret": 8,
+                  "from_string": 4,
+                  "to_string": 2
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            },
+            {
+              "id": "Cm7-4",
+              "bass_degree": "b3",
+              "printed_position": "10 fr",
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 11,
+                  "finger": 2,
+                  "interval": "b3",
+                  "c_note": "Eb"
+                },
+                {
+                  "string": 4,
+                  "fret": 10,
+                  "finger": 1,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 3,
+                  "fret": 12,
+                  "finger": 4,
+                  "interval": "5",
+                  "c_note": "G"
+                },
+                {
+                  "string": 2,
+                  "fret": 11,
+                  "finger": 3,
+                  "interval": "b7",
+                  "c_note": "Bb"
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            }
+          ]
+        },
+        {
+          "id": "m6",
+          "label": "Minor 6",
+          "suffix": "m6",
+          "quality_intervals": [
+            0,
+            3,
+            7,
+            9
+          ],
+          "shapes": [
+            {
+              "id": "Cm6-1",
+              "bass_degree": "5",
+              "printed_position": null,
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 3,
+                  "finger": 3,
+                  "interval": "5",
+                  "c_note": "G"
+                },
+                {
+                  "string": 4,
+                  "fret": 1,
+                  "finger": 1,
+                  "interval": "b3",
+                  "c_note": "Eb"
+                },
+                {
+                  "string": 3,
+                  "fret": 2,
+                  "finger": 2,
+                  "interval": "6",
+                  "c_note": "A"
+                },
+                {
+                  "string": 2,
+                  "fret": 1,
+                  "finger": 1,
+                  "interval": "1",
+                  "c_note": "C"
+                }
+              ],
+              "barres": [
+                {
+                  "finger": 1,
+                  "fret": 1,
+                  "from_string": 4,
+                  "to_string": 2
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            },
+            {
+              "id": "Cm6-2",
+              "bass_degree": "6",
+              "printed_position": null,
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 5,
+                  "finger": 2,
+                  "interval": "6",
+                  "c_note": "A"
+                },
+                {
+                  "string": 4,
+                  "fret": 5,
+                  "finger": 3,
+                  "interval": "5",
+                  "c_note": "G"
+                },
+                {
+                  "string": 3,
+                  "fret": 5,
+                  "finger": 4,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 2,
+                  "fret": 4,
+                  "finger": 1,
+                  "interval": "b3",
+                  "c_note": "Eb"
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            },
+            {
+              "id": "Cm6-3",
+              "bass_degree": "1",
+              "printed_position": "7 fr",
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 8,
+                  "finger": 2,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 4,
+                  "fret": 7,
+                  "finger": 1,
+                  "interval": "6",
+                  "c_note": "A"
+                },
+                {
+                  "string": 3,
+                  "fret": 8,
+                  "finger": 3,
+                  "interval": "b3",
+                  "c_note": "Eb"
+                },
+                {
+                  "string": 2,
+                  "fret": 8,
+                  "finger": 4,
+                  "interval": "5",
+                  "c_note": "G"
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            },
+            {
+              "id": "Cm6-4",
+              "bass_degree": "b3",
+              "printed_position": "10 fr",
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 11,
+                  "finger": 2,
+                  "interval": "b3",
+                  "c_note": "Eb"
+                },
+                {
+                  "string": 4,
+                  "fret": 10,
+                  "finger": 1,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 3,
+                  "fret": 12,
+                  "finger": 3,
+                  "interval": "5",
+                  "c_note": "G"
+                },
+                {
+                  "string": 2,
+                  "fret": 10,
+                  "finger": 1,
+                  "interval": "6",
+                  "c_note": "A"
+                }
+              ],
+              "barres": [
+                {
+                  "finger": 1,
+                  "fret": 10,
+                  "from_string": 4,
+                  "to_string": 2
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            }
+          ]
+        },
+        {
+          "id": "m7b5",
+          "label": "Minor 7♭5",
+          "suffix": "m7♭5",
+          "quality_intervals": [
+            0,
+            3,
+            6,
+            10
+          ],
+          "shapes": [
+            {
+              "id": "Cm7b5-1",
+              "bass_degree": "b5",
+              "printed_position": null,
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 2,
+                  "finger": 3,
+                  "interval": "b5",
+                  "c_note": "Gb"
+                },
+                {
+                  "string": 4,
+                  "fret": 1,
+                  "finger": 1,
+                  "interval": "b3",
+                  "c_note": "Eb"
+                },
+                {
+                  "string": 3,
+                  "fret": 3,
+                  "finger": 4,
+                  "interval": "b7",
+                  "c_note": "Bb"
+                },
+                {
+                  "string": 2,
+                  "fret": 1,
+                  "finger": 1,
+                  "interval": "1",
+                  "c_note": "C"
+                }
+              ],
+              "barres": [
+                {
+                  "finger": 1,
+                  "fret": 1,
+                  "from_string": 4,
+                  "to_string": 2
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            },
+            {
+              "id": "Cm7b5-2",
+              "bass_degree": "b7",
+              "printed_position": "4 fr",
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 6,
+                  "finger": 4,
+                  "interval": "b7",
+                  "c_note": "Bb"
+                },
+                {
+                  "string": 4,
+                  "fret": 4,
+                  "finger": 1,
+                  "interval": "b5",
+                  "c_note": "Gb"
+                },
+                {
+                  "string": 3,
+                  "fret": 5,
+                  "finger": 2,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 2,
+                  "fret": 4,
+                  "finger": 1,
+                  "interval": "b3",
+                  "c_note": "Eb"
+                }
+              ],
+              "barres": [
+                {
+                  "finger": 1,
+                  "fret": 4,
+                  "from_string": 4,
+                  "to_string": 2
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            },
+            {
+              "id": "Cm7b5-3",
+              "bass_degree": "1",
+              "printed_position": "7 fr",
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 8,
+                  "finger": 2,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 4,
+                  "fret": 8,
+                  "finger": 3,
+                  "interval": "b7",
+                  "c_note": "Bb"
+                },
+                {
+                  "string": 3,
+                  "fret": 8,
+                  "finger": 4,
+                  "interval": "b3",
+                  "c_note": "Eb"
+                },
+                {
+                  "string": 2,
+                  "fret": 7,
+                  "finger": 1,
+                  "interval": "b5",
+                  "c_note": "Gb"
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            },
+            {
+              "id": "Cm7b5-4",
+              "bass_degree": "b3",
+              "printed_position": "10 fr",
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 11,
+                  "finger": 2,
+                  "interval": "b3",
+                  "c_note": "Eb"
+                },
+                {
+                  "string": 4,
+                  "fret": 10,
+                  "finger": 1,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 3,
+                  "fret": 11,
+                  "finger": 3,
+                  "interval": "b5",
+                  "c_note": "Gb"
+                },
+                {
+                  "string": 2,
+                  "fret": 11,
+                  "finger": 4,
+                  "interval": "b7",
+                  "c_note": "Bb"
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dominant",
+      "label": "Dominant Group",
+      "source": "IMG_2065.jpg",
+      "chords": [
+        {
+          "id": "7",
+          "label": "Dominant 7",
+          "suffix": "7",
+          "quality_intervals": [
+            0,
+            4,
+            7,
+            10
+          ],
+          "shapes": [
+            {
+              "id": "C7-1",
+              "bass_degree": "5",
+              "printed_position": null,
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 3,
+                  "finger": 3,
+                  "interval": "5",
+                  "c_note": "G"
+                },
+                {
+                  "string": 4,
+                  "fret": 2,
+                  "finger": 2,
+                  "interval": "3",
+                  "c_note": "E"
+                },
+                {
+                  "string": 3,
+                  "fret": 3,
+                  "finger": 4,
+                  "interval": "b7",
+                  "c_note": "Bb"
+                },
+                {
+                  "string": 2,
+                  "fret": 1,
+                  "finger": 1,
+                  "interval": "1",
+                  "c_note": "C"
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            },
+            {
+              "id": "C7-2",
+              "bass_degree": "b7",
+              "printed_position": "5 fr",
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 6,
+                  "finger": 2,
+                  "interval": "b7",
+                  "c_note": "Bb"
+                },
+                {
+                  "string": 4,
+                  "fret": 5,
+                  "finger": 1,
+                  "interval": "5",
+                  "c_note": "G"
+                },
+                {
+                  "string": 3,
+                  "fret": 5,
+                  "finger": 1,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 2,
+                  "fret": 5,
+                  "finger": 1,
+                  "interval": "3",
+                  "c_note": "E"
+                }
+              ],
+              "barres": [
+                {
+                  "finger": 1,
+                  "fret": 5,
+                  "from_string": 4,
+                  "to_string": 2
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            },
+            {
+              "id": "C7-3",
+              "bass_degree": "1",
+              "printed_position": "8 fr",
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 8,
+                  "finger": 1,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 4,
+                  "fret": 8,
+                  "finger": 2,
+                  "interval": "b7",
+                  "c_note": "Bb"
+                },
+                {
+                  "string": 3,
+                  "fret": 9,
+                  "finger": 4,
+                  "interval": "3",
+                  "c_note": "E"
+                },
+                {
+                  "string": 2,
+                  "fret": 8,
+                  "finger": 3,
+                  "interval": "5",
+                  "c_note": "G"
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            },
+            {
+              "id": "C7-4",
+              "bass_degree": "3",
+              "printed_position": "10 fr",
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 12,
+                  "finger": 3,
+                  "interval": "3",
+                  "c_note": "E"
+                },
+                {
+                  "string": 4,
+                  "fret": 10,
+                  "finger": 1,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 3,
+                  "fret": 12,
+                  "finger": 4,
+                  "interval": "5",
+                  "c_note": "G"
+                },
+                {
+                  "string": 2,
+                  "fret": 11,
+                  "finger": 2,
+                  "interval": "b7",
+                  "c_note": "Bb"
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "augmented",
+      "label": "Augmented / Altered Group",
+      "source": "IMG_2066.jpg",
+      "chords": [
+        {
+          "id": "aug",
+          "label": "Augmented",
+          "suffix": "+",
+          "quality_intervals": [
+            0,
+            4,
+            8
+          ],
+          "shapes": [
+            {
+              "id": "Caug-1",
+              "bass_degree": "#5",
+              "printed_position": null,
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 4,
+                  "finger": 3,
+                  "interval": "#5",
+                  "c_note": "Ab"
+                },
+                {
+                  "string": 4,
+                  "fret": 2,
+                  "finger": 1,
+                  "interval": "3",
+                  "c_note": "E"
+                },
+                {
+                  "string": 3,
+                  "fret": 5,
+                  "finger": 4,
+                  "interval": "1",
+                  "c_note": "C"
+                }
+              ],
+              "muted_strings": [
+                5,
+                2,
+                1
+              ]
+            },
+            {
+              "id": "Caug-2",
+              "bass_degree": "1",
+              "printed_position": "6 fr",
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 8,
+                  "finger": 3,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 4,
+                  "fret": 6,
+                  "finger": 1,
+                  "interval": "#5",
+                  "c_note": "Ab"
+                },
+                {
+                  "string": 3,
+                  "fret": 9,
+                  "finger": 4,
+                  "interval": "3",
+                  "c_note": "E"
+                }
+              ],
+              "muted_strings": [
+                5,
+                2,
+                1
+              ]
+            },
+            {
+              "id": "Caug-3",
+              "bass_degree": "3",
+              "printed_position": "10 fr",
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 12,
+                  "finger": 3,
+                  "interval": "3",
+                  "c_note": "E"
+                },
+                {
+                  "string": 4,
+                  "fret": 10,
+                  "finger": 1,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 3,
+                  "fret": 13,
+                  "finger": 4,
+                  "interval": "#5",
+                  "c_note": "Ab"
+                }
+              ],
+              "muted_strings": [
+                5,
+                2,
+                1
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7b5",
+          "label": "Dominant 7♭5",
+          "suffix": "7♭5",
+          "quality_intervals": [
+            0,
+            4,
+            6,
+            10
+          ],
+          "shapes": [
+            {
+              "id": "C7b5-1",
+              "bass_degree": "b5",
+              "printed_position": null,
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 2,
+                  "finger": 2,
+                  "interval": "b5",
+                  "c_note": "Gb"
+                },
+                {
+                  "string": 4,
+                  "fret": 2,
+                  "finger": 3,
+                  "interval": "3",
+                  "c_note": "E"
+                },
+                {
+                  "string": 3,
+                  "fret": 3,
+                  "finger": 4,
+                  "interval": "b7",
+                  "c_note": "Bb"
+                },
+                {
+                  "string": 2,
+                  "fret": 1,
+                  "finger": 1,
+                  "interval": "1",
+                  "c_note": "C"
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            },
+            {
+              "id": "C7b5-2",
+              "bass_degree": "b7",
+              "printed_position": "4 fr",
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 6,
+                  "finger": 4,
+                  "interval": "b7",
+                  "c_note": "Bb"
+                },
+                {
+                  "string": 4,
+                  "fret": 4,
+                  "finger": 1,
+                  "interval": "b5",
+                  "c_note": "Gb"
+                },
+                {
+                  "string": 3,
+                  "fret": 5,
+                  "finger": 2,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 2,
+                  "fret": 5,
+                  "finger": 3,
+                  "interval": "3",
+                  "c_note": "E"
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            },
+            {
+              "id": "C7b5-3",
+              "bass_degree": "1",
+              "printed_position": "7 fr",
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 8,
+                  "finger": 2,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 4,
+                  "fret": 8,
+                  "finger": 3,
+                  "interval": "b7",
+                  "c_note": "Bb"
+                },
+                {
+                  "string": 3,
+                  "fret": 9,
+                  "finger": 4,
+                  "interval": "3",
+                  "c_note": "E"
+                },
+                {
+                  "string": 2,
+                  "fret": 7,
+                  "finger": 1,
+                  "interval": "b5",
+                  "c_note": "Gb"
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            },
+            {
+              "id": "C7b5-4",
+              "bass_degree": "3",
+              "printed_position": "10 fr",
+              "notes": [
+                {
+                  "string": 6,
+                  "fret": 12,
+                  "finger": 4,
+                  "interval": "3",
+                  "c_note": "E"
+                },
+                {
+                  "string": 4,
+                  "fret": 10,
+                  "finger": 1,
+                  "interval": "1",
+                  "c_note": "C"
+                },
+                {
+                  "string": 3,
+                  "fret": 11,
+                  "finger": 2,
+                  "interval": "b5",
+                  "c_note": "Gb"
+                },
+                {
+                  "string": 2,
+                  "fret": 11,
+                  "finger": 3,
+                  "interval": "b7",
+                  "c_note": "Bb"
+                }
+              ],
+              "muted_strings": [
+                5,
+                1
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
