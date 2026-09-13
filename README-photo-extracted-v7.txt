@@ -1,9 +1,3 @@
-# JazzFlashCards
-A static app to generate jazz chord voicing for practicing and learning shapes/intervals/fingerings
-
-# History
-```
-
 Photo-extracted Guitar Chord Flashcards — v7
 
 New: Practice fret range
@@ -22,5 +16,3 @@ New: Practice fret range
 - Fret-range preferences persist in localStorage across reloads.
 
 The chord-shape JSON data is unchanged from v6.
-
-```
