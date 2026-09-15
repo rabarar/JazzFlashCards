@@ -23,7 +23,7 @@
     {
       "id": "major",
       "label": "Major Group",
-      "source": "IMG_2061.jpg / IMG_2062.jpg / IMG_2063.jpg",
+      "source": "jazz book",
       "chords": [
         {
           "id": "major",
@@ -497,7 +497,7 @@
     {
       "id": "minor",
       "label": "Minor Group",
-      "source": "IMG_2064.jpg",
+      "source": "jazz book",
       "chords": [
         {
           "id": "minor",
@@ -1170,7 +1170,7 @@
     {
       "id": "dominant",
       "label": "Dominant Group",
-      "source": "IMG_2065.jpg",
+      "source": "jazz book",
       "chords": [
         {
           "id": "7",
@@ -1354,7 +1354,7 @@
     {
       "id": "augmented",
       "label": "Augmented / Altered Group",
-      "source": "IMG_2066.jpg",
+      "source": "jazz book",
       "chords": [
         {
           "id": "aug",

@@ -474,6 +474,9 @@ const ROOTS = [
   {name:"C",pc:0},{name:"Db",pc:1},{name:"D",pc:2},{name:"Eb",pc:3},{name:"E",pc:4},{name:"F",pc:5},
   {name:"Gb",pc:6},{name:"G",pc:7},{name:"Ab",pc:8},{name:"A",pc:9},{name:"Bb",pc:10},{name:"B",pc:11}
 ];
+function cleanGroupTitle(s){
+  return String(s||"").replace(/\s*[•·]\s*IMG[._]?\d+\.jpg(?:\s*\/\s*IMG[._]?\d+\.jpg)*/gi,"").trim();
+}
 const NOTE_NAMES=["C","Db","D","Eb","E","F","Gb","G","Ab","A","Bb","B"];
 const LETTERS=["C","D","E","F","G","A","B"];
 const NATURAL_PC={C:0,D:2,E:4,F:5,G:7,A:9,B:11};
