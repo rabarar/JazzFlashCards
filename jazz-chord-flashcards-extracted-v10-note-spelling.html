@@ -1,0 +1,984 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Photo-Extracted Guitar Chord Flashcards</title>
+<style>
+:root{--navy:#0f2f4f;--blue:#1677e8;--ink:#0d1b2a;--muted:#657284;--line:#d9e2ec;--panel:#fff;--bg:#f4f7fb;--wood1:#8a5b36;--wood2:#6f4529}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{background:linear-gradient(100deg,#173b5d,#0c2742);color:#fff;padding:18px 26px;display:flex;gap:20px;align-items:center;justify-content:space-between}
+h1{font-family:Georgia,serif;font-size:32px;margin:0}.sub{opacity:.9}
+.topBtns,.seg{display:flex;gap:8px;align-items:center}.btn{border:1px solid #c7d2df;background:#fff;padding:10px 15px;border-radius:9px;cursor:pointer;font-weight:650}.btn.primary{background:var(--blue);color:#fff;border-color:var(--blue)}.btn.dark{background:transparent;color:white;border-color:#6e8296}.btn:disabled{opacity:.45;cursor:not-allowed}
+main{display:grid;grid-template-columns:300px minmax(560px,1fr) 310px;gap:14px;padding:14px;max-width:1550px;margin:auto}
+.panel{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 2px #16324a0d}
+.sidebar{padding:15px;max-height:calc(100vh - 110px);overflow:auto}.groupTitle{font-family:Georgia,serif;font-weight:700;font-size:18px;margin:4px 0 9px}
+.checkrow{display:flex;align-items:center;gap:9px;padding:5px 0}.checkrow input{width:18px;height:18px;accent-color:var(--blue)}
+.sourceNote{font-size:12px;color:var(--muted);margin:-4px 0 8px 27px}
+.card{padding:16px;min-height:760px}.cardHead{text-align:center;position:relative}.cardHead h2{font:700 52px/1 Georgia,serif;margin:4px 0 2px}.shapeMeta{font-size:18px;font-weight:700}.muted{color:var(--muted)}
+.cardBody{display:grid;grid-template-columns:minmax(330px,1fr) 300px;gap:24px;align-items:start;margin-top:18px}
+.boardWrap{display:flex;flex-direction:column;align-items:center}.boardToolbar{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;justify-content:center}
+.fretboard{position:relative;width:330px;height:610px;background:linear-gradient(90deg,var(--wood2),var(--wood1) 25%,var(--wood2) 50%,var(--wood1) 75%,var(--wood2));border:2px solid #4a3527;box-shadow:inset 0 0 0 1px #b48a68,0 5px 20px #1426381f;border-radius:3px;user-select:none}
+.string{position:absolute;top:0;bottom:0;width:2px;background:#e8e7e3;box-shadow:0 0 2px #000}.stringLabel{position:absolute;top:-30px;transform:translateX(-50%);font-weight:700}
+.fret{position:absolute;left:0;right:0;height:3px;background:#c8cbd0;box-shadow:0 1px 1px #30251d}.fretNum{position:absolute;left:-48px;transform:translateY(-50%);font-weight:700;color:#28384a;width:40px;text-align:right}
+.dot{position:absolute;width:42px;height:42px;border-radius:50%;transform:translate(-50%,-50%);background:#13283e;border:2px solid white;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:16px;box-shadow:0 1px 5px #0008;z-index:4;cursor:pointer}.dot.root{background:#fff;color:#13283e;border:3px solid #13283e;box-shadow:0 1px 5px #0006}.dot.bass{outline:3px solid #e34b4b;outline-offset:2px}.dot.selected{outline:4px solid #ffb000;outline-offset:2px}
+.barre{position:absolute;height:20px;border-top:3px solid #101d2c;border-radius:50%;z-index:3;pointer-events:none}
+.cell{position:absolute;z-index:2;cursor:crosshair}.cell:hover{background:#ffffff17}
+.info{padding:18px;border:1px solid var(--line);border-radius:11px}.infoGrid{display:grid;grid-template-columns:86px 1fr;gap:10px 8px;font-size:16px}.infoGrid b{font-weight:700}
+.controls{display:grid;gap:10px;margin-top:18px}.displaySeg{display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid #cbd7e5;border-radius:9px;overflow:hidden}.displaySeg button{border:0;padding:10px;background:#fff;font-weight:700;cursor:pointer}.displaySeg button.on{background:#e8f2ff;color:#0459b6;box-shadow:inset 0 0 0 1px #70b2ff}
+.right{padding:14px;max-height:calc(100vh - 110px);overflow:auto}.right h3{font-family:Georgia,serif;margin:0 0 10px}.shapeItem{border:1px solid #d8e2ed;border-radius:9px;padding:10px;margin-bottom:8px;cursor:pointer}.shapeItem.active{background:#eaf4ff;border-color:#8cc2ff}.shapeItem small{color:var(--muted)}
+.legend{font-size:13px;color:var(--muted);margin-top:12px}
+.editor{border-top:1px solid var(--line);margin-top:14px;padding-top:14px}.fingerBtns{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.fingerBtns button{padding:8px;border:1px solid #ccd7e3;background:#fff;border-radius:7px;cursor:pointer}.fingerBtns button.on{background:#173b5d;color:#fff}.danger{color:#b42318;border-color:#f0b8b4!important}
+
+.rangeBox{margin-top:12px;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:#f8fafc}
+.rangeRow{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-top:7px}
+.rangeField{display:flex;align-items:center;gap:6px}
+.rangeField label{font-size:12px;font-weight:700;color:var(--muted)}
+.rangeField input{width:58px;padding:7px 6px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);font-weight:700}
+.rangeDash{color:var(--muted);font-weight:800}
+.rangeHint{font-size:11px;line-height:1.35;color:var(--muted);margin-top:7px}
+.rangeStatus{font-size:11px;line-height:1.35;margin-top:6px;font-weight:700}
+.filehint{font-size:12px;color:#66788c;margin-top:8px}
+
+@media(max-width:1100px){
+  main{
+    grid-template-columns:220px minmax(0,1fr);
+    gap:10px;
+  }
+  .right{
+    grid-column:1/-1;
+    max-height:none;
+  }
+  .cardBody{
+    grid-template-columns:1fr;
+  }
+  .info{
+    max-width:560px;
+    margin:0 auto;
+  }
+  .sidebar{
+    max-height:none;
+  }
+}
+
+@media(max-width:720px){
+  #mobilePracticeHint{display:block!important}
+  html,body{
+    width:100%;
+    max-width:100%;
+    overflow-x:hidden;
+    -webkit-text-size-adjust:100%;
+  }
+
+  body{
+    font-size:16px;
+    padding:0;
+  }
+
+  header{
+    position:sticky;
+    top:0;
+    z-index:20;
+    padding:
+      calc(10px + env(safe-area-inset-top))
+      max(10px,env(safe-area-inset-right))
+      10px
+      max(10px,env(safe-area-inset-left));
+    display:block;
+    box-shadow:0 1px 8px rgba(0,0,0,.18);
+  }
+
+  header .titleWrap,
+  header>div:first-child{
+    min-width:0;
+  }
+
+  h1{
+    font-size:24px;
+    line-height:1.1;
+    margin:0;
+  }
+
+  .sub{
+    font-size:12px;
+    line-height:1.3;
+    margin-top:4px;
+  }
+
+  .topBtns{
+    margin-top:10px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+
+  .topBtns .btn{
+    min-height:42px;
+    padding:8px 6px;
+    font-size:12px;
+    border-radius:9px;
+  }
+
+  #runtimeWarning{
+    margin:8px 10px 0!important;
+    font-size:13px;
+  }
+
+  main{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    padding:
+      8px
+      max(8px,env(safe-area-inset-right))
+      calc(14px + env(safe-area-inset-bottom))
+      max(8px,env(safe-area-inset-left));
+  }
+
+  .panel{
+    margin:0;
+    border-radius:12px;
+    overflow:hidden;
+  }
+
+  /* Put the actual practice card first on phones. */
+  .center{
+    order:1;
+  }
+
+  .sidebar{
+    order:2;
+    max-height:none;
+  }
+
+  .right{
+    order:3;
+    max-height:none;
+  }
+
+  .card{
+    min-height:0;
+    padding:10px;
+  }
+
+  .cardHead{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    margin-bottom:4px;
+  }
+
+  .cardHead h2{
+    font-size:36px;
+    line-height:1;
+    margin:0;
+    white-space:nowrap;
+  }
+
+  .cardHead .muted,
+  .cardHead small{
+    font-size:11px;
+  }
+
+  .cardBody{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:8px;
+  }
+
+  .boardWrap{
+    width:100%;
+    min-width:0;
+  }
+
+  .boardToolbar{
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:6px;
+    margin-bottom:8px;
+  }
+
+  .boardToolbar .btn{
+    min-height:40px;
+    padding:7px 5px;
+    font-size:12px;
+    line-height:1.15;
+    white-space:normal;
+  }
+
+  .fretboard{
+    width:min(252px,calc(100vw - 58px));
+    height:470px;
+    margin:0 auto;
+    touch-action:manipulation;
+  }
+
+  .dot{
+    width:38px;
+    height:38px;
+    font-size:14px;
+  }
+
+  .info{
+    width:100%;
+    max-width:none;
+    padding:10px 11px;
+    border-radius:10px;
+  }
+
+  .infoGrid{
+    display:grid;
+    grid-template-columns:72px minmax(0,1fr);
+    row-gap:6px;
+    column-gap:8px;
+    font-size:14px;
+  }
+
+  .infoGrid>*{
+    min-width:0;
+    overflow-wrap:anywhere;
+  }
+
+  .displaySeg{
+    grid-template-columns:repeat(3,1fr);
+    gap:4px;
+    background:transparent;
+    border:0;
+  }
+
+  .displaySeg button{
+    min-height:40px;
+    border:1px solid #dbe3ec!important;
+    border-radius:8px!important;
+    padding:5px 3px;
+    font-size:11px;
+    line-height:1.1;
+  }
+
+  .controls{
+    gap:7px;
+  }
+
+  .controls>.btn{
+    min-height:42px;
+    font-size:13px;
+  }
+
+  /* Make practice controls easy to scan instead of one long sidebar. */
+  .sidebar{
+    padding:10px;
+  }
+
+  .groupTitle{
+    margin-top:10px;
+    margin-bottom:5px;
+    font-size:12px;
+  }
+
+  .checkrow{
+    min-height:38px;
+    padding:6px 4px;
+  }
+
+  .checkrow input[type="checkbox"]{
+    width:20px;
+    height:20px;
+    flex:0 0 auto;
+  }
+
+  #toggles,
+  #rootToggles{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:2px 8px;
+  }
+
+  #toggles .groupTitle,
+  #toggles .sourceNote{
+    grid-column:1/-1;
+  }
+
+  .sourceNote{
+    font-size:10px;
+    margin-bottom:5px;
+  }
+
+  .rangeBox{
+    margin-top:10px;
+    padding:9px 10px;
+  }
+
+  .rangeRow{
+    grid-template-columns:1fr auto 1fr;
+    gap:6px;
+  }
+
+  .rangeField{
+    justify-content:space-between;
+  }
+
+  .rangeField input{
+    width:60px;
+    min-height:40px;
+    font-size:16px;
+  }
+
+  .rangeHint,
+  .rangeStatus,
+  .filehint{
+    font-size:10px;
+    line-height:1.35;
+  }
+
+  .right{
+    padding:10px;
+  }
+
+  .shapeItem{
+    padding:9px 8px;
+    margin-bottom:6px;
+    border-radius:9px;
+    font-size:13px;
+  }
+
+  .shapeItem small{
+    font-size:10px;
+    line-height:1.3;
+  }
+
+  .shapeItem,.checkrow,.btn,.displaySeg button{
+    touch-action:manipulation;
+    -webkit-tap-highlight-color:rgba(22,119,232,.14);
+  }
+}
+
+@media(max-width:390px){
+  h1{font-size:22px}
+  .cardHead h2{font-size:33px}
+  .fretboard{
+    width:min(236px,calc(100vw - 52px));
+    height:450px;
+  }
+  #toggles,#rootToggles{
+    grid-template-columns:1fr;
+  }
+  .displaySeg{
+    grid-template-columns:1fr 1fr 1fr;
+  }
+}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>Guitar Chord Flashcards</h1><div class="sub">Fretboard shapes transcribed from your supplied photos — no extra voicings</div></div>
+  <div class="topBtns">
+    <button class="btn primary" id="practiceBtn">Practice</button>
+    <button class="btn dark" id="editBtn">Edit</button>
+    <button class="btn dark" id="importBtn">Import JSON</button>
+    <button class="btn dark" id="exportBtn">Export JSON</button>
+    <button class="btn dark" id="resetBtn">Reset to photos</button>
+    <input id="fileInput" type="file" accept=".json,application/json" hidden>
+  </div>
+</header>
+<div id="runtimeWarning" hidden style="margin:10px auto;max-width:900px;padding:10px 12px;border:1px solid #e7b4b4;background:#fff4f4;color:#8d2525;border-radius:9px;font-weight:650"></div>
+<main>
+  <aside class="panel sidebar">
+    <div class="groupTitle">Chord Groups</div>
+    <label class="checkrow" style="padding:7px 0 10px;border-bottom:1px solid var(--line);margin-bottom:7px">
+      <input type="checkbox" id="allGroupsToggle" checked>
+      <span><b>All groups</b></span>
+    </label>
+    <div id="toggles"></div>
+    <hr style="border:0;border-top:1px solid var(--line);margin:15px 0">
+    <div class="groupTitle">Practice roots</div>
+    <div id="rootToggles"></div>
+
+    <div class="rangeBox">
+      <div class="groupTitle" style="margin:0">Practice fret range</div>
+      <div class="rangeRow">
+        <div class="rangeField"><label for="minFret">Min</label><input id="minFret" type="number" min="1" max="18" step="1" value="1"></div>
+        <div class="rangeDash">to</div>
+        <div class="rangeField"><label for="maxFret">Max</label><input id="maxFret" type="number" min="1" max="18" step="1" value="18"></div>
+      </div>
+      <div class="rangeHint">Random practice only uses voicings that fit completely inside this range.</div>
+      <div id="rangeStatus" class="rangeStatus"></div>
+    </div>
+
+    <div class="filehint">The bundled photo transcription is embedded for direct-file use. When hosted by a local web server, the app also loads <b>photo-extracted-chords.json</b>. Edits are saved in this browser when storage is available; the app also works if Safari blocks local storage. Original printed-position labels remain stored in JSON as source metadata. The visible Position is live, and Random practice respects your selected fret range.</div>
+  </aside>
+
+  <section class="panel card">
+    <div class="cardHead">
+      <h2 id="chordName">Cm7</h2>
+      <div class="shapeMeta" id="shapeMeta">Shape 1</div>
+      <div class="muted" id="sourceMeta"></div>
+    </div>
+    <div id="mobilePracticeHint" class="muted" style="display:none;font-size:11px;margin-bottom:4px">Tap Random for a new voicing. Use the fret controls to transpose the whole shape.</div><div class="cardBody">
+      <div class="boardWrap">
+        <div class="boardToolbar">
+          <button class="btn" id="prevBtn">‹ Prev shape</button>
+          <button class="btn" id="downNeckBtn">↓ Neck −½ step</button>
+          <button class="btn" id="upNeckBtn">↑ Neck +½ step</button>
+          <button class="btn" id="nextBtn">Next shape ›</button>
+        </div>
+        <div id="fretboard" class="fretboard"></div>
+      </div>
+      <div>
+        <div class="info">
+          <div class="infoGrid">
+            <b>Chord:</b><span id="iChord"></span>
+            <b>Shape:</b><span id="iShape"></span>
+            <b>Bass:</b><span id="iBass"></span>
+            <b>Position:</b><span id="iPos"></span>
+            <b>Notes:</b><span id="iNotes"></span>
+            <b>Intervals:</b><span id="iIntervals"></span>
+            <b>Fingers:</b><span id="iFingers"></span>
+          </div>
+          <div class="legend">White/dark inverse dot = root note (1) when the root is present in the voicing. Red outline = the bass note identified by the printed circled scale-degree beside the source diagram. Barre arcs are reconstructed only where the printed fingering repeats on the same fret.</div>
+        </div>
+        <div class="controls">
+          <div class="displaySeg">
+            <button id="notesMode" class="on">Note Names</button>
+            <button id="fingersMode">Finger Numbers</button>
+            <button id="degreesMode">Chord Degrees</button>
+          </div>
+          <button class="btn primary" id="randomBtn">Random chord + shape</button>
+          <button class="btn" id="hideBtn">Hide shape</button>
+        </div>
+        <div id="editor" class="editor" hidden>
+          <b>Edit directly on fretboard</b>
+          <p class="muted" style="margin:5px 0 10px">Click any fret/string cell to add or move a note. Click a dot to select it, then choose its suggested finger.</p>
+          <div class="fingerBtns" id="fingerBtns"></div>
+          <button class="btn danger" id="deleteNoteBtn" style="width:100%;margin-top:8px">Delete selected note</button>
+          <button class="btn" id="duplicateBtn" style="width:100%;margin-top:8px">Duplicate this shape</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <aside class="panel right">
+    <h3 id="rightTitle">Shapes</h3>
+    <div id="shapeList"></div>
+  </aside>
+</main>
+
+<script>
+const EMBEDDED = {"schema_version": 2, "title": "Photo-extracted jazz chord shapes", "reference_root": "C", "string_order": [6, 5, 4, 3, 2, 1], "tuning": {"6": "E", "5": "A", "4": "D", "3": "G", "2": "B", "1": "E"}, "note_convention": "Each shape is the printed C-reference voicing from the supplied photos. Transposition moves the entire shape by the same number of semitones; it does not invent alternate voicings.", "groups": [{"id": "major", "label": "Major Group", "source": "IMG_2061.jpg / IMG_2062.jpg / IMG_2063.jpg", "chords": [{"id": "major", "label": "Major", "suffix": "", "quality_intervals": [0, 4, 7], "shapes": [{"id": "C-major-1", "bass_degree": "5", "printed_position": null, "notes": [{"string": 6, "fret": 3, "finger": 2, "interval": "5", "c_note": "G"}, {"string": 4, "fret": 2, "finger": 1, "interval": "3", "c_note": "E"}, {"string": 3, "fret": 5, "finger": 4, "interval": "1", "c_note": "C"}], "muted_strings": [5, 2, 1]}, {"id": "C-major-2", "bass_degree": "1", "printed_position": "5 fr", "notes": [{"string": 6, "fret": 8, "finger": 3, "interval": "1", "c_note": "C"}, {"string": 4, "fret": 5, "finger": 1, "interval": "5", "c_note": "G"}, {"string": 3, "fret": 9, "finger": 4, "interval": "3", "c_note": "E"}], "muted_strings": [5, 2, 1]}, {"id": "C-major-3", "bass_degree": "3", "printed_position": "10 fr", "notes": [{"string": 6, "fret": 12, "finger": 3, "interval": "3", "c_note": "E"}, {"string": 4, "fret": 10, "finger": 1, "interval": "1", "c_note": "C"}, {"string": 3, "fret": 12, "finger": 4, "interval": "5", "c_note": "G"}], "muted_strings": [5, 2, 1]}]}, {"id": "maj7", "label": "Major 7", "suffix": "maj7", "quality_intervals": [0, 4, 7, 11], "shapes": [{"id": "C-maj7-1", "bass_degree": "5", "printed_position": null, "notes": [{"string": 6, "fret": 3, "finger": 2, "interval": "5", "c_note": "G"}, {"string": 4, "fret": 2, "finger": 1, "interval": "3", "c_note": "E"}, {"string": 3, "fret": 4, "finger": 4, "interval": "7", "c_note": "B"}], "muted_strings": [5, 2, 1]}, {"id": "C-maj7-2", "bass_degree": "7", "printed_position": "5 fr", "notes": [{"string": 6, "fret": 7, "finger": 3, "interval": "7", "c_note": "B"}, {"string": 4, "fret": 5, "finger": 1, "interval": "5", "c_note": "G"}, {"string": 3, "fret": 5, "finger": 1, "interval": "1", "c_note": "C"}, {"string": 2, "fret": 5, "finger": 1, "interval": "3", "c_note": "E"}], "barres": [{"finger": 1, "fret": 5, "from_string": 4, "to_string": 2}], "muted_strings": [5, 1]}, {"id": "C-maj7-3", "bass_degree": "1", "printed_position": "8 fr", "notes": [{"string": 6, "fret": 8, "finger": 1, "interval": "1", "c_note": "C"}, {"string": 4, "fret": 9, "finger": 3, "interval": "7", "c_note": "B"}, {"string": 3, "fret": 9, "finger": 4, "interval": "3", "c_note": "E"}, {"string": 2, "fret": 8, "finger": 2, "interval": "5", "c_note": "G"}], "muted_strings": [5, 1]}, {"id": "C-maj7-4", "bass_degree": "3", "printed_position": "10 fr", "notes": [{"string": 6, "fret": 12, "finger": 2, "interval": "3", "c_note": "E"}, {"string": 4, "fret": 10, "finger": 1, "interval": "1", "c_note": "C"}, {"string": 3, "fret": 12, "finger": 3, "interval": "5", "c_note": "G"}, {"string": 2, "fret": 12, "finger": 4, "interval": "7", "c_note": "B"}], "muted_strings": [5, 1]}]}, {"id": "6", "label": "Major 6", "suffix": "6", "quality_intervals": [0, 4, 7, 9], "shapes": [{"id": "C6-1", "bass_degree": "5", "printed_position": null, "notes": [{"string": 6, "fret": 3, "finger": 4, "interval": "5", "c_note": "G"}, {"string": 4, "fret": 2, "finger": 2, "interval": "3", "c_note": "E"}, {"string": 3, "fret": 2, "finger": 3, "interval": "6", "c_note": "A"}, {"string": 2, "fret": 1, "finger": 1, "interval": "1", "c_note": "C"}], "muted_strings": [5, 1]}, {"id": "C6-2", "bass_degree": "6", "printed_position": null, "notes": [{"string": 6, "fret": 5, "finger": 2, "interval": "6", "c_note": "A"}, {"string": 4, "fret": 5, "finger": 3, "interval": "5", "c_note": "G"}, {"string": 3, "fret": 5, "finger": 3, "interval": "1", "c_note": "C"}, {"string": 2, "fret": 5, "finger": 3, "interval": "3", "c_note": "E"}], "barres": [{"finger": 3, "fret": 5, "from_string": 4, "to_string": 2}], "muted_strings": [5, 1]}, {"id": "C6-3", "bass_degree": "1", "printed_position": "7 fr", "notes": [{"string": 6, "fret": 8, "finger": 2, "interval": "1", "c_note": "C"}, {"string": 4, "fret": 7, "finger": 1, "interval": "6", "c_note": "A"}, {"string": 3, "fret": 9, "finger": 4, "interval": "3", "c_note": "E"}, {"string": 2, "fret": 8, "finger": 3, "interval": "5", "c_note": "G"}], "muted_strings": [5, 1]}, {"id": "C6-4", "bass_degree": "3", "printed_position": "10 fr", "notes": [{"string": 6, "fret": 12, "finger": 3, "interval": "3", "c_note": "E"}, {"string": 4, "fret": 10, "finger": 1, "interval": "1", "c_note": "C"}, {"string": 3, "fret": 12, "finger": 4, "interval": "5", "c_note": "G"}, {"string": 2, "fret": 10, "finger": 1, "interval": "6", "c_note": "A"}], "barres": [{"finger": 1, "fret": 10, "from_string": 4, "to_string": 2}], "muted_strings": [5, 1]}]}]}, {"id": "minor", "label": "Minor Group", "source": "IMG_2064.jpg", "chords": [{"id": "minor", "label": "Minor", "suffix": "m", "quality_intervals": [0, 3, 7], "shapes": [{"id": "Cm-1", "bass_degree": "5", "printed_position": null, "notes": [{"string": 6, "fret": 3, "finger": 2, "interval": "5", "c_note": "G"}, {"string": 4, "fret": 1, "finger": 1, "interval": "b3", "c_note": "Eb"}, {"string": 3, "fret": 5, "finger": 4, "interval": "1", "c_note": "C"}], "muted_strings": [5, 2, 1]}, {"id": "Cm-2", "bass_degree": "1", "printed_position": "5 fr", "notes": [{"string": 6, "fret": 8, "finger": 3, "interval": "1", "c_note": "C"}, {"string": 4, "fret": 5, "finger": 1, "interval": "5", "c_note": "G"}, {"string": 3, "fret": 8, "finger": 4, "interval": "b3", "c_note": "Eb"}], "muted_strings": [5, 2, 1]}, {"id": "Cm-3", "bass_degree": "b3", "printed_position": "10 fr", "notes": [{"string": 6, "fret": 11, "finger": 2, "interval": "b3", "c_note": "Eb"}, {"string": 4, "fret": 10, "finger": 1, "interval": "1", "c_note": "C"}, {"string": 3, "fret": 12, "finger": 4, "interval": "5", "c_note": "G"}], "muted_strings": [5, 2, 1]}]}, {"id": "m7", "label": "Minor 7", "suffix": "m7", "quality_intervals": [0, 3, 7, 10], "shapes": [{"id": "Cm7-1", "bass_degree": "5", "printed_position": null, "notes": [{"string": 6, "fret": 3, "finger": 3, "interval": "5", "c_note": "G"}, {"string": 4, "fret": 1, "finger": 1, "interval": "b3", "c_note": "Eb"}, {"string": 3, "fret": 3, "finger": 4, "interval": "b7", "c_note": "Bb"}, {"string": 2, "fret": 1, "finger": 1, "interval": "1", "c_note": "C"}], "barres": [{"finger": 1, "fret": 1, "from_string": 4, "to_string": 2}], "muted_strings": [5, 1]}, {"id": "Cm7-2", "bass_degree": "b7", "printed_position": "4 fr", "notes": [{"string": 6, "fret": 6, "finger": 4, "interval": "b7", "c_note": "Bb"}, {"string": 4, "fret": 5, "finger": 2, "interval": "5", "c_note": "G"}, {"string": 3, "fret": 5, "finger": 3, "interval": "1", "c_note": "C"}, {"string": 2, "fret": 4, "finger": 1, "interval": "b3", "c_note": "Eb"}], "muted_strings": [5, 1]}, {"id": "Cm7-3", "bass_degree": "1", "printed_position": "8 fr", "notes": [{"string": 6, "fret": 8, "finger": 2, "interval": "1", "c_note": "C"}, {"string": 4, "fret": 8, "finger": 3, "interval": "b7", "c_note": "Bb"}, {"string": 3, "fret": 8, "finger": 3, "interval": "b3", "c_note": "Eb"}, {"string": 2, "fret": 8, "finger": 3, "interval": "5", "c_note": "G"}], "barres": [{"finger": 3, "fret": 8, "from_string": 4, "to_string": 2}], "muted_strings": [5, 1]}, {"id": "Cm7-4", "bass_degree": "b3", "printed_position": "10 fr", "notes": [{"string": 6, "fret": 11, "finger": 2, "interval": "b3", "c_note": "Eb"}, {"string": 4, "fret": 10, "finger": 1, "interval": "1", "c_note": "C"}, {"string": 3, "fret": 12, "finger": 4, "interval": "5", "c_note": "G"}, {"string": 2, "fret": 11, "finger": 3, "interval": "b7", "c_note": "Bb"}], "muted_strings": [5, 1]}]}, {"id": "m6", "label": "Minor 6", "suffix": "m6", "quality_intervals": [0, 3, 7, 9], "shapes": [{"id": "Cm6-1", "bass_degree": "5", "printed_position": null, "notes": [{"string": 6, "fret": 3, "finger": 3, "interval": "5", "c_note": "G"}, {"string": 4, "fret": 1, "finger": 1, "interval": "b3", "c_note": "Eb"}, {"string": 3, "fret": 2, "finger": 2, "interval": "6", "c_note": "A"}, {"string": 2, "fret": 1, "finger": 1, "interval": "1", "c_note": "C"}], "barres": [{"finger": 1, "fret": 1, "from_string": 4, "to_string": 2}], "muted_strings": [5, 1]}, {"id": "Cm6-2", "bass_degree": "6", "printed_position": null, "notes": [{"string": 6, "fret": 5, "finger": 2, "interval": "6", "c_note": "A"}, {"string": 4, "fret": 5, "finger": 3, "interval": "5", "c_note": "G"}, {"string": 3, "fret": 5, "finger": 4, "interval": "1", "c_note": "C"}, {"string": 2, "fret": 4, "finger": 1, "interval": "b3", "c_note": "Eb"}], "muted_strings": [5, 1]}, {"id": "Cm6-3", "bass_degree": "1", "printed_position": "7 fr", "notes": [{"string": 6, "fret": 8, "finger": 2, "interval": "1", "c_note": "C"}, {"string": 4, "fret": 7, "finger": 1, "interval": "6", "c_note": "A"}, {"string": 3, "fret": 8, "finger": 3, "interval": "b3", "c_note": "Eb"}, {"string": 2, "fret": 8, "finger": 4, "interval": "5", "c_note": "G"}], "muted_strings": [5, 1]}, {"id": "Cm6-4", "bass_degree": "b3", "printed_position": "10 fr", "notes": [{"string": 6, "fret": 11, "finger": 2, "interval": "b3", "c_note": "Eb"}, {"string": 4, "fret": 10, "finger": 1, "interval": "1", "c_note": "C"}, {"string": 3, "fret": 12, "finger": 3, "interval": "5", "c_note": "G"}, {"string": 2, "fret": 10, "finger": 1, "interval": "6", "c_note": "A"}], "barres": [{"finger": 1, "fret": 10, "from_string": 4, "to_string": 2}], "muted_strings": [5, 1]}]}, {"id": "m7b5", "label": "Minor 7♭5", "suffix": "m7♭5", "quality_intervals": [0, 3, 6, 10], "shapes": [{"id": "Cm7b5-1", "bass_degree": "b5", "printed_position": null, "notes": [{"string": 6, "fret": 2, "finger": 3, "interval": "b5", "c_note": "Gb"}, {"string": 4, "fret": 1, "finger": 1, "interval": "b3", "c_note": "Eb"}, {"string": 3, "fret": 3, "finger": 4, "interval": "b7", "c_note": "Bb"}, {"string": 2, "fret": 1, "finger": 1, "interval": "1", "c_note": "C"}], "barres": [{"finger": 1, "fret": 1, "from_string": 4, "to_string": 2}], "muted_strings": [5, 1]}, {"id": "Cm7b5-2", "bass_degree": "b7", "printed_position": "4 fr", "notes": [{"string": 6, "fret": 6, "finger": 4, "interval": "b7", "c_note": "Bb"}, {"string": 4, "fret": 4, "finger": 1, "interval": "b5", "c_note": "Gb"}, {"string": 3, "fret": 5, "finger": 2, "interval": "1", "c_note": "C"}, {"string": 2, "fret": 4, "finger": 1, "interval": "b3", "c_note": "Eb"}], "barres": [{"finger": 1, "fret": 4, "from_string": 4, "to_string": 2}], "muted_strings": [5, 1]}, {"id": "Cm7b5-3", "bass_degree": "1", "printed_position": "7 fr", "notes": [{"string": 6, "fret": 8, "finger": 2, "interval": "1", "c_note": "C"}, {"string": 4, "fret": 8, "finger": 3, "interval": "b7", "c_note": "Bb"}, {"string": 3, "fret": 8, "finger": 4, "interval": "b3", "c_note": "Eb"}, {"string": 2, "fret": 7, "finger": 1, "interval": "b5", "c_note": "Gb"}], "muted_strings": [5, 1]}, {"id": "Cm7b5-4", "bass_degree": "b3", "printed_position": "10 fr", "notes": [{"string": 6, "fret": 11, "finger": 2, "interval": "b3", "c_note": "Eb"}, {"string": 4, "fret": 10, "finger": 1, "interval": "1", "c_note": "C"}, {"string": 3, "fret": 11, "finger": 3, "interval": "b5", "c_note": "Gb"}, {"string": 2, "fret": 11, "finger": 4, "interval": "b7", "c_note": "Bb"}], "muted_strings": [5, 1]}]}]}, {"id": "dominant", "label": "Dominant Group", "source": "IMG_2065.jpg", "chords": [{"id": "7", "label": "Dominant 7", "suffix": "7", "quality_intervals": [0, 4, 7, 10], "shapes": [{"id": "C7-1", "bass_degree": "5", "printed_position": null, "notes": [{"string": 6, "fret": 3, "finger": 3, "interval": "5", "c_note": "G"}, {"string": 4, "fret": 2, "finger": 2, "interval": "3", "c_note": "E"}, {"string": 3, "fret": 3, "finger": 4, "interval": "b7", "c_note": "Bb"}, {"string": 2, "fret": 1, "finger": 1, "interval": "1", "c_note": "C"}], "muted_strings": [5, 1]}, {"id": "C7-2", "bass_degree": "b7", "printed_position": "5 fr", "notes": [{"string": 6, "fret": 6, "finger": 2, "interval": "b7", "c_note": "Bb"}, {"string": 4, "fret": 5, "finger": 1, "interval": "5", "c_note": "G"}, {"string": 3, "fret": 5, "finger": 1, "interval": "1", "c_note": "C"}, {"string": 2, "fret": 5, "finger": 1, "interval": "3", "c_note": "E"}], "barres": [{"finger": 1, "fret": 5, "from_string": 4, "to_string": 2}], "muted_strings": [5, 1]}, {"id": "C7-3", "bass_degree": "1", "printed_position": "8 fr", "notes": [{"string": 6, "fret": 8, "finger": 1, "interval": "1", "c_note": "C"}, {"string": 4, "fret": 8, "finger": 2, "interval": "b7", "c_note": "Bb"}, {"string": 3, "fret": 9, "finger": 4, "interval": "3", "c_note": "E"}, {"string": 2, "fret": 8, "finger": 3, "interval": "5", "c_note": "G"}], "muted_strings": [5, 1]}, {"id": "C7-4", "bass_degree": "3", "printed_position": "10 fr", "notes": [{"string": 6, "fret": 12, "finger": 3, "interval": "3", "c_note": "E"}, {"string": 4, "fret": 10, "finger": 1, "interval": "1", "c_note": "C"}, {"string": 3, "fret": 12, "finger": 4, "interval": "5", "c_note": "G"}, {"string": 2, "fret": 11, "finger": 2, "interval": "b7", "c_note": "Bb"}], "muted_strings": [5, 1]}]}]}, {"id": "augmented", "label": "Augmented / Altered Group", "source": "IMG_2066.jpg", "chords": [{"id": "aug", "label": "Augmented", "suffix": "+", "quality_intervals": [0, 4, 8], "shapes": [{"id": "Caug-1", "bass_degree": "#5", "printed_position": null, "notes": [{"string": 6, "fret": 4, "finger": 3, "interval": "#5", "c_note": "Ab"}, {"string": 4, "fret": 2, "finger": 1, "interval": "3", "c_note": "E"}, {"string": 3, "fret": 5, "finger": 4, "interval": "1", "c_note": "C"}], "muted_strings": [5, 2, 1]}, {"id": "Caug-2", "bass_degree": "1", "printed_position": "6 fr", "notes": [{"string": 6, "fret": 8, "finger": 3, "interval": "1", "c_note": "C"}, {"string": 4, "fret": 6, "finger": 1, "interval": "#5", "c_note": "Ab"}, {"string": 3, "fret": 9, "finger": 4, "interval": "3", "c_note": "E"}], "muted_strings": [5, 2, 1]}, {"id": "Caug-3", "bass_degree": "3", "printed_position": "10 fr", "notes": [{"string": 6, "fret": 12, "finger": 3, "interval": "3", "c_note": "E"}, {"string": 4, "fret": 10, "finger": 1, "interval": "1", "c_note": "C"}, {"string": 3, "fret": 13, "finger": 4, "interval": "#5", "c_note": "Ab"}], "muted_strings": [5, 2, 1]}]}, {"id": "7b5", "label": "Dominant 7♭5", "suffix": "7♭5", "quality_intervals": [0, 4, 6, 10], "shapes": [{"id": "C7b5-1", "bass_degree": "b5", "printed_position": null, "notes": [{"string": 6, "fret": 2, "finger": 2, "interval": "b5", "c_note": "Gb"}, {"string": 4, "fret": 2, "finger": 3, "interval": "3", "c_note": "E"}, {"string": 3, "fret": 3, "finger": 4, "interval": "b7", "c_note": "Bb"}, {"string": 2, "fret": 1, "finger": 1, "interval": "1", "c_note": "C"}], "muted_strings": [5, 1]}, {"id": "C7b5-2", "bass_degree": "b7", "printed_position": "4 fr", "notes": [{"string": 6, "fret": 6, "finger": 4, "interval": "b7", "c_note": "Bb"}, {"string": 4, "fret": 4, "finger": 1, "interval": "b5", "c_note": "Gb"}, {"string": 3, "fret": 5, "finger": 2, "interval": "1", "c_note": "C"}, {"string": 2, "fret": 5, "finger": 3, "interval": "3", "c_note": "E"}], "muted_strings": [5, 1]}, {"id": "C7b5-3", "bass_degree": "1", "printed_position": "7 fr", "notes": [{"string": 6, "fret": 8, "finger": 2, "interval": "1", "c_note": "C"}, {"string": 4, "fret": 8, "finger": 3, "interval": "b7", "c_note": "Bb"}, {"string": 3, "fret": 9, "finger": 4, "interval": "3", "c_note": "E"}, {"string": 2, "fret": 7, "finger": 1, "interval": "b5", "c_note": "Gb"}], "muted_strings": [5, 1]}, {"id": "C7b5-4", "bass_degree": "3", "printed_position": "10 fr", "notes": [{"string": 6, "fret": 12, "finger": 4, "interval": "3", "c_note": "E"}, {"string": 4, "fret": 10, "finger": 1, "interval": "1", "c_note": "C"}, {"string": 3, "fret": 11, "finger": 2, "interval": "b5", "c_note": "Gb"}, {"string": 2, "fret": 11, "finger": 3, "interval": "b7", "c_note": "Bb"}], "muted_strings": [5, 1]}]}]}]};
+const STORAGE_KEY = "photo-extracted-chords-v2";
+const PREFS_KEY = "photo-extracted-chords-prefs-v1";
+const ROOTS = [
+  {name:"C",pc:0},{name:"Db",pc:1},{name:"D",pc:2},{name:"Eb",pc:3},{name:"E",pc:4},{name:"F",pc:5},
+  {name:"Gb",pc:6},{name:"G",pc:7},{name:"Ab",pc:8},{name:"A",pc:9},{name:"Bb",pc:10},{name:"B",pc:11}
+];
+const NOTE_NAMES=["C","Db","D","Eb","E","F","Gb","G","Ab","A","Bb","B"];
+const LETTERS=["C","D","E","F","G","A","B"];
+const NATURAL_PC={C:0,D:2,E:4,F:5,G:7,A:9,B:11};
+
+function parseRootName(name){
+  const m=String(name).match(/^([A-G])([b#]?)/);
+  return m ? {letter:m[1],accidental:m[2]||""} : {letter:"C",accidental:""};
+}
+function degreeNumber(interval){
+  const m=String(interval).match(/(\d+)/);
+  return m ? parseInt(m[1],10) : 1;
+}
+function accidentalForDelta(delta){
+  delta=mod12(delta);
+  if(delta>6)delta-=12;
+  if(delta===0)return "";
+  if(delta===1)return "#";
+  if(delta===2)return "##";
+  if(delta===-1)return "b";
+  if(delta===-2)return "bb";
+  return delta>0 ? "#".repeat(delta) : "b".repeat(-delta);
+}
+function spellChordTone(rootName,interval,pitch){
+  const root=parseRootName(rootName);
+  const rootLetterIndex=LETTERS.indexOf(root.letter);
+  const degree=degreeNumber(interval);
+  const targetLetter=LETTERS[(rootLetterIndex+degree-1)%7];
+  return targetLetter+accidentalForDelta(pitch-NATURAL_PC[targetLetter]);
+}
+const OPEN={6:4,5:9,4:2,3:7,2:11,1:4};
+const STRING_X={6:0,5:1,4:2,3:3,2:4,1:5};
+let db=null, mode="practice", displayMode="notes", hidden=false, selectedNoteIndex=null;
+let enabledChordIds=new Set(), enabledRoots=new Set(ROOTS.map(r=>r.name));
+let current={groupId:"minor",chordId:"m7",shapeIndex:0,rootName:"C",neckShift:null};
+let fretRange={min:1,max:18};
+
+function clone(x){return JSON.parse(JSON.stringify(x))}
+function storageGet(key){
+  try{return window.localStorage ? window.localStorage.getItem(key) : null}catch(e){return null}
+}
+function storageSet(key,value){
+  try{if(window.localStorage){window.localStorage.setItem(key,value);return true}}catch(e){}
+  return false
+}
+function storageRemove(key){
+  try{if(window.localStorage)window.localStorage.removeItem(key)}catch(e){}
+}
+function showRuntimeWarning(message){
+  const el=document.getElementById("runtimeWarning");
+  if(!el)return;
+  el.textContent=message;
+  el.hidden=false;
+}
+async function loadDB(){
+  const saved=storageGet(STORAGE_KEY);
+  if(saved){ try{db=JSON.parse(saved); init(); return;}catch(e){} }
+  if(location.protocol!=="file:"){
+    try{
+      const r=await fetch("photo-extracted-chords.json",{cache:"no-store"});
+      if(r.ok){db=await r.json(); init(); return;}
+    }catch(e){}
+  }
+  db=clone(EMBEDDED); init();
+}
+function save(){ storageSet(STORAGE_KEY,JSON.stringify(db)); }
+function allChords(){
+  const out=[];
+  db.groups.forEach(function(g){
+    g.chords.forEach(function(c){out.push({group:g,chord:c})});
+  });
+  return out;
+}
+function getCurrent(){
+  const group=db.groups.find(g=>g.id===current.groupId)||db.groups[0];
+  const chord=group.chords.find(c=>c.id===current.chordId)||group.chords[0];
+  current.groupId=group.id; current.chordId=chord.id;
+  current.shapeIndex=Math.max(0,Math.min(current.shapeIndex,chord.shapes.length-1));
+  return {group,chord,shape:chord.shapes[current.shapeIndex]};
+}
+function suffixName(root,chord){return root+chord.suffix}
+function intervalName(pc){return ["1","b2","2","b3","3","4","b5","5","#5","6","b7","7"][pc]}
+function prettyInterval(x){return String(x).replace(/^b/,"♭").replace(/^#/,"♯")}
+function mod12(n){return ((n%12)+12)%12}
+function possibleShifts(shape, rootPc, minFret=fretRange.min, maxFret=fretRange.max){
+  if(!shape.notes || !shape.notes.length) return [];
+  const minSource=Math.min(...shape.notes.map(n=>n.fret));
+  const maxSource=Math.max(...shape.notes.map(n=>n.fret));
+
+  // A valid transposition must remain congruent to the selected root (mod 12)
+  // while placing every note inside the chosen physical fret window.
+  const lowShift=minFret-minSource;
+  const highShift=maxFret-maxSource;
+  if(lowShift>highShift) return [];
+
+  const kMin=Math.ceil((lowShift-rootPc)/12);
+  const kMax=Math.floor((highShift-rootPc)/12);
+  const out=[];
+  for(let k=kMin;k<=kMax;k++) out.push(rootPc+12*k);
+  return out;
+}
+function normalizeShift(shape, rootPc){
+  const options=possibleShifts(shape,rootPc);
+  if(options.length){
+    // Prefer the placement nearest the original photographed position.
+    return options.reduce((best,s)=>Math.abs(s)<Math.abs(best)?s:best,options[0]);
+  }
+
+  // Fallback used only when the user selects a range too narrow for this
+  // particular voicing. Keep it inside the physical 1–18 board if possible.
+  let shift=rootPc;
+  if(!shape.notes || !shape.notes.length) return shift;
+  const minSource=Math.min(...shape.notes.map(n=>n.fret));
+  const maxSource=Math.max(...shape.notes.map(n=>n.fret));
+  while(maxSource+shift>18) shift-=12;
+  while(minSource+shift<1) shift+=12;
+  return shift;
+}
+function nearestAllowedShift(shape, rootPc, preferredShift=null){
+  const options=possibleShifts(shape,rootPc);
+  if(!options.length) return null;
+  const target=Number.isInteger(preferredShift)?preferredShift:normalizeShift(shape,rootPc);
+  return options.reduce((best,s)=>Math.abs(s-target)<Math.abs(best-target)?s:best,options[0]);
+}
+function transposed(shape, rootPc, forcedShift){
+  const shift=Number.isInteger(forcedShift)?forcedShift:normalizeShift(shape,rootPc);
+  return {
+    shift:shift,
+    notes:shape.notes.map(function(n,i){
+      const fret=n.fret+shift;
+      const pitch=mod12(OPEN[n.string]+fret);
+      return {
+        string:n.string,
+        fret:fret,
+        finger:n.finger,
+        interval:intervalName(mod12(pitch-rootPc)),
+        c_note:n.c_note,
+        _i:i,
+        pitch:pitch,
+        note:spellChordTone(ROOTS[rootPc].name,intervalName(mod12(pitch-rootPc)),pitch)
+      };
+    }),
+    barres:(shape.barres||[]).map(function(b){
+      return {finger:b.finger,fret:b.fret+shift,from_string:b.from_string,to_string:b.to_string};
+    })
+  };
+}
+
+function loadPrefs(){
+  try{
+    const p=JSON.parse(storageGet(PREFS_KEY)||"null");
+    if(!p) return false;
+    if(Array.isArray(p.enabledChordIds)) enabledChordIds=new Set(p.enabledChordIds);
+    if(Array.isArray(p.enabledRoots)) enabledRoots=new Set(p.enabledRoots);
+    if(p.displayMode==="notes"||p.displayMode==="fingers"||p.displayMode==="degrees") displayMode=p.displayMode;
+    if(p.fretRange && Number.isInteger(p.fretRange.min) && Number.isInteger(p.fretRange.max)){
+      fretRange={
+        min:Math.max(1,Math.min(18,p.fretRange.min)),
+        max:Math.max(1,Math.min(18,p.fretRange.max))
+      };
+      if(fretRange.min>fretRange.max) [fretRange.min,fretRange.max]=[fretRange.max,fretRange.min];
+    }
+    if(p.current && typeof p.current==="object"){
+      current={
+        groupId:p.current.groupId||current.groupId,
+        chordId:p.current.chordId||current.chordId,
+        shapeIndex:Number.isInteger(p.current.shapeIndex)?p.current.shapeIndex:current.shapeIndex,
+        rootName:p.current.rootName||current.rootName,
+        neckShift:Number.isInteger(p.current.neckShift)?p.current.neckShift:null
+      };
+    }
+    return true;
+  }catch(e){ return false; }
+}
+function savePrefs(){
+  try{
+    storageSet(PREFS_KEY,JSON.stringify({
+      enabledChordIds:[...enabledChordIds],
+      enabledRoots:[...enabledRoots],
+      displayMode,
+      fretRange,
+      current
+    }));
+  }catch(e){}
+}
+
+function init(){
+  const loadedPrefs=loadPrefs();
+  if(!loadedPrefs){
+    enabledChordIds=new Set(allChords().map(x=>x.chord.id));
+    enabledRoots=new Set(ROOTS.map(r=>r.name));
+    fretRange={min:1,max:18};
+  }else{
+    // Drop stale IDs/names if the dataset changed.
+    const validChordIds=new Set(allChords().map(x=>x.chord.id));
+    enabledChordIds=new Set([...enabledChordIds].filter(id=>validChordIds.has(id)));
+    const validRoots=new Set(ROOTS.map(r=>r.name));
+    enabledRoots=new Set([...enabledRoots].filter(r=>validRoots.has(r)));
+  }
+  document.getElementById("minFret").value=fretRange.min;
+  document.getElementById("maxFret").value=fretRange.max;
+  fitCurrentToRange();
+  renderToggles(); renderRootToggles(); buildFingerButtons(); renderAll(); savePrefs();
+}
+function syncAllGroupsToggle(){
+  const master=document.getElementById("allGroupsToggle");
+  if(!master)return;
+  const ids=allChords().map(x=>x.chord.id);
+  const count=ids.filter(id=>enabledChordIds.has(id)).length;
+  master.checked=count===ids.length;
+  master.indeterminate=count>0 && count<ids.length;
+}
+function renderToggles(){
+  const el=document.getElementById("toggles"); el.innerHTML="";
+  db.groups.forEach(g=>{
+    const h=document.createElement("div"); h.className="groupTitle"; h.style.marginTop="13px"; h.textContent=g.label; el.appendChild(h);
+    g.chords.forEach(c=>{
+      const row=document.createElement("label"); row.className="checkrow";
+      const checked=enabledChordIds.has(c.id)?"checked":"";
+      row.innerHTML=`<input type="checkbox" ${checked} data-id="${c.id}"><span>${c.label} <span class="muted">(${c.shapes.length})</span></span>`;
+      row.querySelector("input").onchange=e=>{
+        e.target.checked?enabledChordIds.add(c.id):enabledChordIds.delete(c.id);
+        syncAllGroupsToggle();
+        savePrefs();
+      };
+      el.appendChild(row);
+    });
+    const s=document.createElement("div"); s.className="sourceNote"; s.textContent=g.source; el.appendChild(s);
+  });
+  const master=document.getElementById("allGroupsToggle");
+  master.onchange=e=>{
+    const turnOn=e.target.checked;
+    enabledChordIds = turnOn
+      ? new Set(allChords().map(x=>x.chord.id))
+      : new Set();
+    el.querySelectorAll('input[type="checkbox"][data-id]').forEach(cb=>cb.checked=turnOn);
+    syncAllGroupsToggle();
+    savePrefs();
+  };
+  syncAllGroupsToggle();
+}
+function renderRootToggles(){
+  const el=document.getElementById("rootToggles"); el.innerHTML="";
+  ROOTS.forEach(r=>{
+    const row=document.createElement("label"); row.className="checkrow";
+    const checked=enabledRoots.has(r.name)?"checked":"";
+    row.innerHTML=`<input type="checkbox" ${checked}><span>${r.name}</span>`;
+    row.querySelector("input").onchange=e=>{
+      e.target.checked?enabledRoots.add(r.name):enabledRoots.delete(r.name);
+      savePrefs();
+    };
+    el.appendChild(row);
+  });
+}
+function buildFingerButtons(){
+  const el=document.getElementById("fingerBtns"); el.innerHTML="";
+  [1,2,3,4,"—"].forEach(f=>{
+    const b=document.createElement("button"); b.textContent=f;
+    b.onclick=()=>setFinger(f==="—"?null:f); el.appendChild(b);
+  });
+}
+function setFinger(f){
+  if(mode!=="edit"||selectedNoteIndex==null)return;
+  const {shape}=getCurrent(); shape.notes[selectedNoteIndex].finger=f; save(); renderAll();
+}
+function fitCurrentToRange(){
+  const {shape}=getCurrent();
+  const root=ROOTS.find(r=>r.name===current.rootName)||ROOTS[0];
+  const fitted=nearestAllowedShift(shape,root.pc,current.neckShift);
+  if(fitted!==null) current.neckShift=fitted;
+}
+function updateFretRange(){
+  let lo=parseInt(document.getElementById("minFret").value,10);
+  let hi=parseInt(document.getElementById("maxFret").value,10);
+  if(!Number.isFinite(lo)) lo=1;
+  if(!Number.isFinite(hi)) hi=18;
+  lo=Math.max(1,Math.min(18,lo));
+  hi=Math.max(1,Math.min(18,hi));
+  if(lo>hi){
+    // Keep the control the user just changed valid by collapsing to one fret.
+    const active=document.activeElement && document.activeElement.id;
+    if(active==="minFret") hi=lo; else lo=hi;
+  }
+  fretRange={min:lo,max:hi};
+  document.getElementById("minFret").value=lo;
+  document.getElementById("maxFret").value=hi;
+  fitCurrentToRange();
+  renderAll();
+  savePrefs();
+}
+function renderAll(){renderCard();renderShapes();}
+function renderCard(){
+  const {group,chord,shape}=getCurrent();
+  const root=ROOTS.find(r=>r.name===current.rootName)||ROOTS[0];
+  const t=transposed(shape,root.pc,current.neckShift);
+  document.getElementById("chordName").textContent=suffixName(root.name,chord);
+  document.getElementById("shapeMeta").textContent=`Shape ${current.shapeIndex+1} of ${chord.shapes.length}`;
+  document.getElementById("sourceMeta").textContent=`${group.label} • ${group.source}`;
+  document.getElementById("iChord").textContent=suffixName(root.name,chord);
+  document.getElementById("iShape").textContent=`${current.shapeIndex+1} of ${chord.shapes.length}`;
+  document.getElementById("iBass").textContent=shape.bass_degree;
+  {
+    const fretVals=t.notes.map(n=>n.fret);
+    const lo=Math.min(...fretVals), hi=Math.max(...fretVals);
+    document.getElementById("iPos").textContent = lo===hi ? `Fret ${lo}` : `Frets ${lo}–${hi}`;
+  }
+  document.getElementById("iNotes").textContent=t.notes.map(n=>n.note).join("  ");
+  document.getElementById("iIntervals").textContent=t.notes.map(n=>prettyInterval(n.interval)).join("  ");
+  document.getElementById("iFingers").textContent=t.notes.map(n=>(n.finger==null?"—":n.finger)).join("  ");
+  drawFretboard(t,shape);
+  document.getElementById("notesMode").classList.toggle("on",displayMode==="notes");
+  document.getElementById("fingersMode").classList.toggle("on",displayMode==="fingers");
+  document.getElementById("degreesMode").classList.toggle("on",displayMode==="degrees");
+  const currentFrets=t.notes.map(n=>n.fret);
+  const currentLo=Math.min(...currentFrets), currentHi=Math.max(...currentFrets);
+  const insideRange=currentLo>=fretRange.min && currentHi<=fretRange.max;
+  const status=document.getElementById("rangeStatus");
+  status.textContent=insideRange
+    ? `Current voicing fits: frets ${fretRange.min}–${fretRange.max}`
+    : `Current voicing is outside frets ${fretRange.min}–${fretRange.max}; Random will skip placements like this.`;
+  status.style.color=insideRange?"var(--muted)":"#a33";
+  document.getElementById("downNeckBtn").disabled=currentLo<=fretRange.min;
+  document.getElementById("upNeckBtn").disabled=currentHi>=fretRange.max;
+  document.getElementById("editor").hidden=mode!=="edit";
+  document.getElementById("practiceBtn").className="btn "+(mode==="practice"?"primary":"dark");
+  document.getElementById("editBtn").className="btn "+(mode==="edit"?"primary":"dark");
+}
+function drawFretboard(t,shape){
+  const el=document.getElementById("fretboard"); el.innerHTML="";
+  const width=el.clientWidth||330, height=el.clientHeight||610, marginX=16, top=22, bottom=18;
+  const xs={}; [6,5,4,3,2,1].forEach((s,i)=>xs[s]=marginX+i*(width-2*marginX)/5);
+  const frets=t.notes.map(n=>n.fret);
+  const min=Math.max(1,Math.min(...frets)-1), max=Math.min(18,Math.max(...frets)+2);
+  const span=Math.max(5,max-min+1), start=Math.max(1,Math.min(min,19-span)), end=start+span-1;
+  const yForFret=f=>top+((f-start)+0.5)*(height-top-bottom)/span;
+  [6,5,4,3,2,1].forEach(s=>{
+    const line=document.createElement("div"); line.className="string"; line.style.left=xs[s]+"px"; el.appendChild(line);
+    const lab=document.createElement("div"); lab.className="stringLabel"; lab.style.left=xs[s]+"px"; lab.textContent=({6:"E",5:"A",4:"D",3:"G",2:"B",1:"e"})[s]; el.appendChild(lab);
+  });
+  for(let f=start;f<=end+1;f++){
+    const y=top+(f-start)*(height-top-bottom)/span;
+    const line=document.createElement("div"); line.className="fret"; line.style.top=y+"px"; el.appendChild(line);
+    if(f<=end){
+      const num=document.createElement("div"); num.className="fretNum"; num.style.top=yForFret(f)+"px"; num.textContent=f; el.appendChild(num);
+    }
+  }
+  if(mode==="edit"){
+    for(let s of [6,5,4,3,2,1]) for(let f=start;f<=end;f++){
+      const c=document.createElement("div"); c.className="cell";
+      const colW=(width-2*marginX)/5;
+      c.style.left=(xs[s]-colW/2)+"px"; c.style.width=colW+"px";
+      c.style.top=(top+(f-start)*(height-top-bottom)/span)+"px"; c.style.height=((height-top-bottom)/span)+"px";
+      c.onclick=()=>editCell(s,f-t.shift); el.appendChild(c);
+    }
+  }
+  if(!hidden){
+    (t.barres||[]).forEach(b=>{
+      if(b.fret<start||b.fret>end)return;
+      const a=document.createElement("div"); a.className="barre";
+      const x1=xs[b.from_string], x2=xs[b.to_string], y=yForFret(b.fret)-28;
+      a.style.left=Math.min(x1,x2)+"px"; a.style.width=Math.abs(x2-x1)+"px"; a.style.top=y+"px"; el.appendChild(a);
+    });
+    t.notes.forEach(n=>{
+      if(n.fret<start||n.fret>end)return;
+      const d=document.createElement("div"); d.className="dot";
+      if(n.interval==="1")d.classList.add("root");
+      if(n.interval===shape.bass_degree || n._i===0)d.classList.add("bass");
+      if(mode==="edit"&&selectedNoteIndex===n._i)d.classList.add("selected");
+      d.style.left=xs[n.string]+"px"; d.style.top=yForFret(n.fret)+"px";
+      d.textContent=
+        displayMode==="notes" ? n.note :
+        displayMode==="fingers" ? (n.finger==null?"—":n.finger) :
+        prettyInterval(n.interval);
+      d.onclick=e=>{e.stopPropagation(); if(mode==="edit"){selectedNoteIndex=n._i;renderAll()}};
+      el.appendChild(d);
+    });
+  }
+}
+function editCell(string, sourceFret){
+  if(mode!=="edit")return;
+  const {shape}=getCurrent();
+  let i=shape.notes.findIndex(n=>n.string===string);
+  if(i>=0){shape.notes[i].fret=sourceFret; selectedNoteIndex=i}
+  else{shape.notes.push({string,fret:sourceFret,finger:1}); shape.notes.sort((a,b)=>b.string-a.string); selectedNoteIndex=shape.notes.findIndex(n=>n.string===string)}
+  shape.muted_strings=[6,5,4,3,2,1].filter(s=>!shape.notes.some(n=>n.string===s));
+  save(); renderAll();
+}
+function renderShapes(){
+  const {group,chord}=getCurrent();
+  document.getElementById("rightTitle").textContent=`All shapes for ${current.rootName}${chord.suffix}`;
+  const el=document.getElementById("shapeList"); el.innerHTML="";
+  chord.shapes.forEach((s,i)=>{
+    const item=document.createElement("div"); item.className="shapeItem "+(i===current.shapeIndex?"active":"");
+    item.innerHTML=`<b>Shape ${i+1}</b> &nbsp; <small>bass ${s.bass_degree}</small><br><small>${s.notes.map(n=>`S${n.string}:f${n.fret}/finger${(n.finger==null?"—":n.finger)}`).join(" · ")}</small>`;
+    item.onclick=()=>{current.shapeIndex=i;current.neckShift=null;fitCurrentToRange();selectedNoteIndex=null;renderAll();savePrefs()}; el.appendChild(item);
+  });
+}
+function randomCard(){
+  const enabledChoices=allChords().filter(x=>enabledChordIds.has(x.chord.id) && x.chord.shapes && x.chord.shapes.length);
+  const roots=ROOTS.filter(r=>enabledRoots.has(r.name));
+  if(!enabledChoices.length||!roots.length)return;
+
+  const candidates=[];
+  enabledChoices.forEach(x=>{
+    x.chord.shapes.forEach((shape,shapeIndex)=>{
+      roots.forEach(r=>{
+        const shifts=possibleShifts(shape,r.pc);
+        if(shifts.length) candidates.push({x,shapeIndex,r,shifts});
+      });
+    });
+  });
+
+  if(!candidates.length){
+    alert(`No selected chord shapes fit completely inside frets ${fretRange.min}–${fretRange.max}. Widen the fret range or enable different roots/chords.`);
+    return;
+  }
+
+  const c=candidates[Math.floor(Math.random()*candidates.length)];
+  current.groupId=c.x.group.id;
+  current.chordId=c.x.chord.id;
+  current.shapeIndex=c.shapeIndex;
+  current.rootName=c.r.name;
+
+  // If more than one octave placement fits, vary among the valid placements.
+  current.neckShift=c.shifts[Math.floor(Math.random()*c.shifts.length)];
+
+  selectedNoteIndex=null;
+  hidden=false;
+  renderAll();
+  savePrefs();
+}
+document.getElementById("randomBtn").onclick=randomCard;
+document.getElementById("minFret").onchange=updateFretRange;
+document.getElementById("maxFret").onchange=updateFretRange;
+document.getElementById("prevBtn").onclick=()=>{const {chord}=getCurrent(); current.shapeIndex=(current.shapeIndex-1+chord.shapes.length)%chord.shapes.length;current.neckShift=null;fitCurrentToRange();selectedNoteIndex=null;renderAll();savePrefs()};
+document.getElementById("nextBtn").onclick=()=>{const {chord}=getCurrent(); current.shapeIndex=(current.shapeIndex+1)%chord.shapes.length;current.neckShift=null;fitCurrentToRange();selectedNoteIndex=null;renderAll();savePrefs()};
+document.getElementById("notesMode").onclick=()=>{displayMode="notes";renderAll();savePrefs()};
+document.getElementById("fingersMode").onclick=()=>{displayMode="fingers";renderAll();savePrefs()};
+document.getElementById("degreesMode").onclick=()=>{displayMode="degrees";renderAll();savePrefs()};
+
+document.getElementById("upNeckBtn").onclick=()=>{
+  const {shape}=getCurrent();
+  const root=ROOTS.find(r=>r.name===current.rootName)||ROOTS[0];
+  const t=transposed(shape,root.pc,current.neckShift);
+  if(Math.max(...t.notes.map(n=>n.fret))>=fretRange.max)return;
+  current.neckShift=t.shift+1;
+  current.rootName=ROOTS[mod12(root.pc+1)].name;
+  selectedNoteIndex=null;
+  renderAll();
+  savePrefs();
+};
+document.getElementById("downNeckBtn").onclick=()=>{
+  const {shape}=getCurrent();
+  const root=ROOTS.find(r=>r.name===current.rootName)||ROOTS[0];
+  const t=transposed(shape,root.pc,current.neckShift);
+  if(Math.min(...t.notes.map(n=>n.fret))<=fretRange.min)return;
+  current.neckShift=t.shift-1;
+  current.rootName=ROOTS[mod12(root.pc-1)].name;
+  selectedNoteIndex=null;
+  renderAll();
+  savePrefs();
+};
+
+document.getElementById("hideBtn").onclick=()=>{hidden=!hidden;document.getElementById("hideBtn").textContent=hidden?"Reveal shape":"Hide shape";renderAll()};
+document.getElementById("practiceBtn").onclick=()=>{mode="practice";selectedNoteIndex=null;renderAll()};
+document.getElementById("editBtn").onclick=()=>{mode="edit";hidden=false;renderAll()};
+document.getElementById("deleteNoteBtn").onclick=()=>{if(selectedNoteIndex==null)return;const {shape}=getCurrent();shape.notes.splice(selectedNoteIndex,1);selectedNoteIndex=null;save();renderAll()};
+document.getElementById("duplicateBtn").onclick=()=>{const {chord,shape}=getCurrent();const cp=clone(shape);cp.id=shape.id+"-copy-"+Date.now();chord.shapes.splice(current.shapeIndex+1,0,cp);current.shapeIndex++;save();renderAll()};
+document.getElementById("resetBtn").onclick=()=>{if(confirm("Discard browser edits and saved practice selections, then restore the photo transcription?")){storageRemove(STORAGE_KEY);storageRemove(PREFS_KEY);db=clone(EMBEDDED);current={groupId:"minor",chordId:"m7",shapeIndex:0,rootName:"C",neckShift:null};displayMode="notes";fretRange={min:1,max:18};init()}};
+document.getElementById("exportBtn").onclick=function(){
+  try{
+    const blob=new Blob([JSON.stringify(db,null,2)],{type:"application/json"});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement("a");
+    a.href=url;
+    a.download="photo-extracted-chords.json";
+    a.style.display="none";
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function(){URL.revokeObjectURL(url);if(a.parentNode)a.parentNode.removeChild(a)},1500);
+  }catch(e){
+    showRuntimeWarning("Safari could not start the JSON download in this browsing context.");
+  }
+};
+document.getElementById("importBtn").onclick=()=>document.getElementById("fileInput").click();
+document.getElementById("fileInput").onchange=function(e){
+  const f=e.target.files && e.target.files[0];
+  if(!f)return;
+  const reader=new FileReader();
+  reader.onload=function(){
+    try{
+      db=JSON.parse(String(reader.result||""));
+      save();
+      current.shapeIndex=0;
+      init();
+    }catch(err){alert("That JSON file could not be loaded.");}
+  };
+  reader.onerror=function(){alert("That JSON file could not be loaded.");};
+  reader.readAsText(f);
+};
+window.addEventListener("error",function(e){
+  if(e && e.message) showRuntimeWarning("Page script error: "+e.message);
+});
+window.addEventListener("unhandledrejection",function(){
+  showRuntimeWarning("A page operation failed in Safari. Reloading the page may recover it.");
+});
+loadDB();
+</script>
+</body>
+</html>
